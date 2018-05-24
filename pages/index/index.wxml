@@ -1,0 +1,44 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <open-data type="userAvatarUrl"></open-data>
+    <open-data type="userNickName"></open-data>
+  </view>
+  <canvas wx:if="{{accountStatus == '启用' && showQrCode }}" class='canvas' canvas-id='canvas' bindlongtap='save'></canvas>
+  <block wx:elif="{{accountStatus == '未启用'}}">
+    <form bindsubmit="activeAccount" bindreset="formReset">
+      <view class="section">
+        <view class="section__title">姓名</view>
+        <input name="name" placeholder="" bindinput="changeName" />
+      </view>
+      <view class="section">
+        <view class="section__title">手机号码</view>
+        <input name="mobile" placeholder="" bindinput="changePhoneNumber" />
+      </view>
+      <view class="section">
+        <view class="section__title">密码</view>
+        <input name="password" placeholder="" bindinput="changePassword" password="true" />
+      </view>
+      <view class="section">
+        <view class="section__title">验证码</view>
+        <input name="captcha" placeholder="" bindinput="changeCaptcha" />
+        <button type="primary" plain="true" bindtap="getSmsCode">获取验证码</button>
+      </view>
+      <view class="btn-area">
+        <button formType="submit">提交</button>
+      </view>
+    </form>
+  </block>
+  <block wx:elif="{{inited}}">
+    <form bindsubmit="checkShowQRcode" bindreset="formReset">
+      <view class="section">
+        <view class="section__title">密码</view>
+        <input name="password" placeholder="" bindinput="changePassword" password="true" />
+      </view>
+      <view class="btn-area">
+        <button formType="submit" type="primary">我的二维码</button>
+      </view>
+    </form>
+  </block>
+
+</view>
